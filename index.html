@@ -304,7 +304,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-17 08:38:47" itemprop="dateModified" datetime="2023-03-17T08:38:47+08:00">2023-03-17</time>
+                <time title="修改时间：2023-03-17 19:09:37" itemprop="dateModified" datetime="2023-03-17T19:09:37+08:00">2023-03-17</time>
               </span>
 
           
@@ -318,25 +318,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Spring-简介"><a href="#Spring-简介" class="headerlink" title="Spring 简介"></a>Spring 简介</h3><p>spring是一个java企业级开发框架，包含了诸多技术，包括：控制反转、依赖注入、面向切面编程（核心概念）等，同时还有spring事务管理、通过spring集成其他框架、springmvc、springboot、springcloud这些简化开发的技术。</p>
-<h4 id="一．七大模块"><a href="#一．七大模块" class="headerlink" title="一．七大模块"></a>一．七大模块</h4><ol>
-<li><p>核心容器（Spring Core）</p>
-<p>通过BeanFactory来创建和管理bean对象的实例，是简单工厂模式的体现，而Spring bean默认是单例模式。</p></li>
-<li><p>应用上下文（Spring Context）</p>
-</li>
-<li><p>Spring面向切面编程（Spring AOP）</p>
-<p>Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术，简单来说就是代理模式。</p></li>
-<li><p>数据访问集成模块（Spring DAO）</p>
-</li>
-<li><p>Web模块（Spring Web）</p>
-</li>
-<li><p>对象实体映射（Spring ORM）</p>
-</li>
-<li><p>MVC模块（Spring Web MVC）</p>
-</li>
+          <h3 id="一．Spring-简介"><a href="#一．Spring-简介" class="headerlink" title="一．Spring 简介"></a>一．Spring 简介</h3><p>
+&emsp;&emsp;spring是一个java企业级开发框架，包含了诸多技术，包括：控制反转、依赖注入、面向切面编程（核心概念）等，同时还有spring事务管理、通过spring集成其他框架、springmvc、springboot、springcloud这些简化开发的技术。<br>
+&emsp;&emsp;
+Spring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。为了降低Java开发的复杂性，Spring采取了以下4种关键策略：<br>
+&emsp;&emsp;（1）基于POJO的轻量级和最小侵入性编程；<br>
+&emsp;&emsp;（2）通过依赖注入和面向接口实现松耦合；<br>
+&emsp;&emsp;（3）基于切面和惯例进行声明式编程；<br>
+&emsp;&emsp;（4）通过切面和模板减少样板式代码；
+</p>
+
+<h3 id="二．总体架构"><a href="#二．总体架构" class="headerlink" title="二．总体架构"></a>二．总体架构</h3><img src="\images\pic5.png" width= 700 height=512 />
+
+<ol>
+<li>核心容器（Core Container）<p>
+&emsp;&emsp;Core 模块提供核心工具类给其他模块使用，主要组件是 BeanFactory，用来创建和管理bean对象的实例，是简单工厂模式的体现；<br>
+&emsp;&emsp;Bean 模块是负责对 Spring bean 的创建管理及注入等（Spring bean 默认是单例模式）；<br>
+&emsp;&emsp;Context 模块是一个配置文件，为 Spring 框架提供上下文信息。Context 模块基于前两者提供了大量扩展功能，包括对国际化、资源加载等；<br>
+&emsp;&emsp;Expression Language 模块提供了强大的表达式语言，用于运行时查询和操作对象。
+</p></li>
+<li>Spring面向切面编程（Spring AOP）<p>
+&emsp;&emsp;提供了一个符合AOP联盟标准的面向切面编程的实现，Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术，简单来说就是代理模式。通过使用 Spring AOP就不用依赖 EJB 组件，将声明性事务管理集成到应用程序中。</p></li>
+<li>数据访问&#x2F;集成模块（Data Access&#x2F;Integration）<p>
+&emsp;&emsp;
+JDBC（Java Database connect）：该模块提供了 Spring 对 JDBC 访问的封装。<br>
+&emsp;&emsp;
+ORM（Object Relational Mapping)：对象关系映射 API，把对象模型表示对象映射到关系Sql数据库，如JPA、Hibernate等。<br>
+&emsp;&emsp;
+OXM：为主流Object/Xml Mapping组件提供了统一层抽象和封装，默认提供目前几个主流O/X Mapping组件的实现，包括XStream，XMLBeans，Castor，JiBX，JAXB。<br>
+&emsp;&emsp;
+JMS（Java Message Service）：java消息服务，用于生产和消费消息的功能。<br>
+&emsp;&emsp;
+Transaction ：事务模块。
+</p></li>
+<li>Web模块（Spring Web）<p>
+&emsp;&emsp;
+Web 上下文模块建立在应用程序上下文模块之上，为基于 Web 的应用程序提供了上下文。
+</p></li>
+<li>Spring Test<p>
+&emsp;&emsp;
+主要为测试提供支持的，支持使用 JUnit 或 TestNG 对 Spring 组件进行单元测试和集成测试。
+</p></li>
 </ol>
-<h4 id="三．IOC-Inversion-of-Control-控制反转"><a href="#三．IOC-Inversion-of-Control-控制反转" class="headerlink" title="三．IOC-Inversion of Control 控制反转"></a>三．IOC-Inversion of Control 控制反转</h4><h5 id="1-思想"><a href="#1-思想" class="headerlink" title="1.思想"></a>1.思想</h5><p>由容器来创建对象（通过读取xml然后反射创建对象），IOC的底层就是对象工厂。</p>
-<h5 id="2-IOC容器实现（两个接口）"><a href="#2-IOC容器实现（两个接口）" class="headerlink" title="2.IOC容器实现（两个接口）"></a>2.IOC容器实现（两个接口）</h5><p>（1）BeanFactory：spring内部接口，不提供给开发人员使用，加载配置文件的时候不会去创建对象，在获取（使用）对象的时候才会去创建对象。<br><br>（2）ApplicationContext：BeanFactory的子接口，提供更多强大的功能，一般由开发人员进行使用，加载配置文件的时候就创建对象。<br><br>（3）ApplicationContext接口常用实现类：</p>
+<h3 id="三．IOC-Inversion-of-Control-控制反转"><a href="#三．IOC-Inversion-of-Control-控制反转" class="headerlink" title="三．IOC-Inversion of Control 控制反转"></a>三．IOC-Inversion of Control 控制反转</h3><h5 id="1-思想"><a href="#1-思想" class="headerlink" title="1.思想"></a>1.思想</h5><p>
+&emsp;&emsp;
+由容器来创建对象（通过读取xml然后反射创建对象），IOC的底层就是对象工厂。
+</p>
+
+<h5 id="2-IOC容器实现（两个接口）"><a href="#2-IOC容器实现（两个接口）" class="headerlink" title="2.IOC容器实现（两个接口）"></a>2.IOC容器实现（两个接口）</h5><h6 id="（1）BeanFactory"><a href="#（1）BeanFactory" class="headerlink" title="（1）BeanFactory"></a>（1）BeanFactory</h6><p>
+&emsp;&emsp;
+spring内部接口，不提供给开发人员使用，加载配置文件的时候不会去创建对象，在获取（使用）对象的时候才会去创建对象。
+</p>
+
+<h6 id="（2）ApplicationContext"><a href="#（2）ApplicationContext" class="headerlink" title="（2）ApplicationContext"></a>（2）ApplicationContext</h6><p>
+&emsp;&emsp;
+BeanFactory的子接口，提供更多强大的功能，一般由开发人员进行使用，加载配置文件的时候就创建对象。
+ApplicationContext接口常用实现类：
+</p>
+
 <ul>
 <li>AnnotationConfigApplicationContext	<br>从一个或多个基于java的配置类中加载上下文定义，适用于java注解的方式。</li>
 <li>ClassPathXmlApplicationContext	<br>从类路径下的一个或多个xml配置文件中加载上下文定义，适用于xml配置的方式。</li>
@@ -344,17 +383,39 @@
 <li>AnnotationConfigWebApplicationContext	<br>专门为web应用准备的，适用于注解方式。</li>
 <li>XmlWebApplicationContext	<br>从web应用下的一个或多个xml配置文件加载上下文定义，适用于xml配置方式。</li>
 </ul>
-<h4 id="四．DI-Dependency-Injection"><a href="#四．DI-Dependency-Injection" class="headerlink" title="四．DI-Dependency Injection"></a>四．DI-Dependency Injection</h4><h5 id="1-Dependency-Injection"><a href="#1-Dependency-Injection" class="headerlink" title="1.Dependency Injection"></a>1.Dependency Injection</h5><p>依赖注入是一种消除类之间依赖关系的设计模式。例如，A类要依赖B类，以前我们是直接在A类new一个B类，而现在是则把这种依赖关系写在xml配置文件，然后由Spring容器根据配置信息来创建、管理bean类，通过容器把B类注入到A类里。</p>
+<h3 id="四．DI-Dependency-Injection"><a href="#四．DI-Dependency-Injection" class="headerlink" title="四．DI-Dependency Injection"></a>四．DI-Dependency Injection</h3><h5 id="1-Dependency-Injection"><a href="#1-Dependency-Injection" class="headerlink" title="1.Dependency Injection"></a>1.Dependency Injection</h5><p>
+&emsp;&emsp;
+依赖注入是一种消除类之间依赖关系的设计模式。例如，A类要依赖B类，以前我们是直接在A类new一个B类，而现在是则把这种依赖关系写在xml配置文件，然后由Spring容器根据配置信息来创建、管理bean类，通过容器把B类注入到A类里。
+</p>
+
 <h5 id="2-注入方式"><a href="#2-注入方式" class="headerlink" title="2.注入方式"></a>2.注入方式</h5><p>主要有三种：构造方法注入（Construct注入），setter注入，基于注解的注入（接口注入）。</p>
 <h6 id="（1）构造方法注入"><a href="#（1）构造方法注入" class="headerlink" title="（1）构造方法注入"></a>（1）构造方法注入</h6><p>① 根据构造器参数索引注入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;xxx&quot;</span> class=<span class="string">&quot;xxx&quot;</span>&gt;</span><br><span class="line">  &lt;constructor-arg index=<span class="string">&quot;0&quot;</span> value=<span class="string">&quot;xxx&quot;</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<p>参数位置的注入对参数顺序有很强的依赖性，若构造函数参数位置被人调整过，会导致注入出错。不过通常情况下，不建议去在代码中修改构造函数，如果需要新增参数的，可以新增一个构造函数来实现，这算是一种扩展，不会影响目前已有的功能。<br><br>②根据构造器参数类型注入</p>
+<p>
+&emsp;&emsp;
+参数位置的注入对参数顺序有很强的依赖性，若构造函数参数位置被人调整过，会导致注入出错。不过通常情况下，不建议去在代码中修改构造函数，如果需要新增参数的，可以新增一个构造函数来实现，这算是一种扩展，不会影响目前已有的功能。
+</p>
+②根据构造器参数类型注入
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;xxx&quot;</span> class=<span class="string">&quot;xxx&quot;</span>&gt;</span><br><span class="line">  &lt;constructor-arg <span class="built_in">type</span>=<span class="string">&quot;参数类型&quot;</span> value=<span class="string">&quot;xxx&quot;</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<p>实际上按照参数位置或者按照参数的类型注入，都有一个问题，很难通过bean的配置文件，知道这个参数是对应UserModel中的那个属性的，代码的可读性不好。<br><br>③根据构造器参数名称注入</p>
+<p>
+&emsp;&emsp;
+实际上按照参数位置或者按照参数的类型注入，都有一个问题，很难通过bean的配置文件，知道这个参数是对应UserModel中的那个属性的，代码的可读性不好。
+</p>
+③根据构造器参数名称注入
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;xxx&quot;</span> class=<span class="string">&quot;xxx&quot;</span>&gt;</span><br><span class="line">  &lt;constructor-arg name=<span class="string">&quot;参数名&quot;</span> value=<span class="string">&quot;xxx&quot;</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<p>java通过反射的方式可以获取到方法的参数名称，不过源码中的参数通过编译之后会变成class对象，通常情况下源码变成class文件之后，参数的真实名称会丢失，参数的名称会变成arg0,arg1,arg2这样的，和实际参数名称不一样了。spring提供了解决方案，通过ConstructorProperties注解来定义参数的名称，将这个注解加在构造方法上面：<br>@ConstructorProperties({“第一个参数名称”, … “第n个参数的名称”})</p>
+<p>
+&emsp;&emsp;
+java通过反射的方式可以获取到方法的参数名称，不过源码中的参数通过编译之后会变成class对象，通常情况下源码变成class文件之后，参数的真实名称会丢失，参数的名称会变成arg0,arg1,arg2这样的，和实际参数名称不一样了。spring提供了解决方案，通过ConstructorProperties注解来定义参数的名称，将这个注解加在构造方法上面：<br>
+&emsp;&emsp;
+@ConstructorProperties({"第一个参数名称", ... "第n个参数的名称"})
+</p>
+
 <h6 id="（2）set注入"><a href="#（2）set注入" class="headerlink" title="（2）set注入"></a>（2）set注入</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userDao&quot;</span> class=<span class="string">&quot;com.my.spring.dao.impl.userDao&quot;</span>&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userService&quot;</span> class=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">  &lt;property name=<span class="string">&quot;XXX&quot;</span> ref=<span class="string">&quot;userDao&quot;</span> /&gt;</span><br><span class="line">&lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">public class UserService&#123;</span><br><span class="line">   		...</span><br><span class="line">    public void setXXX(userDao ud) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当然还可以注入其他类型如String、list、set、map、array、props（相当于键值都是String类型的Map），注意property标签里的ref要换成value。</p>
+<p>
+&emsp;&emsp;
+当然还可以注入其他类型如String、list、set、map、array、props（相当于键值都是String类型的Map），注意property标签里的ref要换成value。
+</p>
+
 <h6 id="（3）基于注解"><a href="#（3）基于注解" class="headerlink" title="（3）基于注解"></a>（3）基于注解</h6><p>注册bean注解：</p>
 <ul>
 <li>@Component：可以用于注册所有bean</li>
@@ -370,7 +431,12 @@
 <li>constructor：按照构造方法进行注入</li>
 <li>default：默认注入方式</li>
 </ul>
-<h4 id="五．bean"><a href="#五．bean" class="headerlink" title="五．bean"></a>五．bean</h4><h5 id="1-bean的实例化"><a href="#1-bean的实例化" class="headerlink" title="1.bean的实例化"></a>1.bean的实例化</h5><p>由spring容器管理的对象统称为Bean对象。Bean就是普通的java对象。<br>（1）通过反射调用构造方法创建<br>（2）静态工厂实例化<br>（3）实例工厂实例化<br>（4）通过FactoryBean创建bean对象创建方式</p>
+<h3 id="五．bean"><a href="#五．bean" class="headerlink" title="五．bean"></a>五．bean</h3><p>
+&emsp;&emsp;
+Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring IOC容器初始化，装配，和管理。这些beans通过容器中配置的元数据创建。比如，以XML文件中的形式定义或通过注解定义。
+</p>
+
+<h5 id="1-bean的实例化"><a href="#1-bean的实例化" class="headerlink" title="1.bean的实例化"></a>1.bean的实例化</h5><p>由spring容器管理的对象统称为Bean对象。Bean就是普通的java对象。<br>（1）通过反射调用构造方法创建<br>（2）静态工厂实例化<br>（3）实例工厂实例化<br>（4）通过FactoryBean创建bean对象创建方式</p>
 <h5 id="2-bean名称别名"><a href="#2-bean名称别名" class="headerlink" title="2.bean名称别名"></a>2.bean名称别名</h5><p>名称和别名可以通过bean元素中的id和name来定义，我们可以通过ClassPathXmlApplicationContext中两个方法来获取bean的名称和别名：getBeanDefinitionNames() 和 getAliases(String beanName)，具体定义规则如下：<br>（1）当id存在的时，取id为bean的名称。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;asd0&quot;</span> name=<span class="string">&quot;asd1,asd2,asd3&quot;</span> class=<span class="string">&quot;...&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>名称：asd0，别名：asd1,asd2,asd3<br>（2）当id不存在时，如果name存在（可通过分隔符分割），会按照分隔符得到一个String数组，数组的第一个元素作为bean的名称，其他作为bean的别名。</p>
@@ -407,18 +473,45 @@
 <td>application</td>
 <td align="center">表示一个web应用程序对应一个bean实例</td>
 </tr>
+<tr>
+<td>自定义</td>
+<td align="center">通过继承scope接口来自定义bean的作用域</td>
+</tr>
 </tbody></table>
-<p>【注】我们还可以通过继承scope接口来自定义bean的作用域。</p>
+<p>
+【注】Spring 框架并没有对单例 bean 进行多线程的封装处理，因此Spring框架中的单例bean不是线程安全的。
+&emsp;&emsp;
+实际上大部分时候 spring bean 无状态的（比如 dao 类），所有某种程度上来说 bean 也是安全的，但如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了，最简单的就是改变 bean 的作用域为 prototype。
+&emsp;&emsp;
+【扩】无状态就是不会保存数据，反过来有状态就是有数据存储功能。
+</p>
+
 <h5 id="4-延迟初始化（了解）"><a href="#4-延迟初始化（了解）" class="headerlink" title="4.延迟初始化（了解）"></a>4.延迟初始化（了解）</h5><p>延迟初始化的bean在容器启动过程中不会创建，而是需要使用的时候才会去创建：<br><bean lazy-init="true/false" /><br>用来解决定义的bean过多或过于复杂，创建耗时。</p>
 <h5 id="5-在容器匹配到多个bean问题"><a href="#5-在容器匹配到多个bean问题" class="headerlink" title="5.在容器匹配到多个bean问题"></a>5.在容器匹配到多个bean问题</h5><p>（1）primary（选择法）<br>当希望从容器中获取到一个bean对象的时候，容器中却找到了多个匹配的bean，此时spring不知道如何选择了，处于懵逼状态，就会报这个异常。<br>spring中可以通过bean元素的primary属性来解决这个问题，可以通过这个属性来指定当前bean为主要候选者，当容器查询一个bean的时候，如果容器中有多个候选者匹配的时候，此时spring会返回主要的候选者。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;serviceA&quot;</span> class=<span class="string">&quot;xxx&quot;</span> primary=<span class="string">&quot;true&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>（2）排除法<br>还有一种方法也可以解决这个问题，可以设置某个bean是否在自动注入的时候是否为作为候选bean（默认值是true）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;serviceA&quot;</span> class=<span class="string">&quot;xxx&quot;</span> autowire-candidate=<span class="string">&quot;false&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>（3）当然也可以两个结合使用</p>
-<h5 id="6-Spring-Bean-的生命周期（重点）"><a href="#6-Spring-Bean-的生命周期（重点）" class="headerlink" title="6.Spring Bean 的生命周期（重点）"></a>6.<a target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118500805">Spring Bean 的生命周期（重点）</a></h5><h5 id="7-单例Bean中使用多例Bean"><a href="#7-单例Bean中使用多例Bean" class="headerlink" title="7.单例Bean中使用多例Bean"></a>7.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1671333">单例Bean中使用多例Bean</a></h5><h4 id="六．代理"><a href="#六．代理" class="headerlink" title="六．代理"></a>六．代理</h4><h5 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1.静态代理"></a>1.静态代理</h5><p>在不改变原业务代码的情况下添加业务功能，但是代码量多。</p>
-<h5 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2.动态代理"></a>2.动态代理</h5><p>（1）简述<br>代理spring中用到的挺多的，比如lookup-method和replaced-method，以及aop、spring中的事务、spring中解析@configuration注解等等，这些都是依靠代理来实现的。<br>（2）动态代理技术的实现方式<br>基于接口的 JDK 动态代理；<br>基于继承的 CGLib 动态代理；</p>
-<h4 id="七．AOP"><a href="#七．AOP" class="headerlink" title="七．AOP"></a>七．AOP</h4><p>AOP（Aspect Oriented Programming）：面向切面编程，它是一种思想，它是对某一类事情的集中处理，AOP 可以说是 OOP（Object Oriented Programming，面向对象编程）的补充和完善。Spring AOP 是通过动态代理技术实现的，而动态代理是基于反射设计的。<br>AOP 可以实现：统一用户登录判断、统一日志记录、统一方法执行时间统计、统一的返回格式设置、统一的异常处理、事务的开启和提交等。</p>
+<h5 id="6-Spring-Bean-的生命周期（重点）"><a href="#6-Spring-Bean-的生命周期（重点）" class="headerlink" title="6.Spring Bean 的生命周期（重点）"></a>6.<a target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118500805">Spring Bean 的生命周期（重点）</a></h5><h5 id="7-单例Bean中使用多例Bean"><a href="#7-单例Bean中使用多例Bean" class="headerlink" title="7.单例Bean中使用多例Bean"></a>7.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1671333">单例Bean中使用多例Bean</a></h5><h3 id="六．代理"><a href="#六．代理" class="headerlink" title="六．代理"></a>六．代理</h3><h5 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1.静态代理"></a>1.静态代理</h5><p>在不改变原业务代码的情况下添加业务功能，但是代码量多。</p>
+<h5 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2.动态代理"></a>2.动态代理</h5><p>（1）简述</p>
+<p>
+&emsp;&emsp;
+代理spring中用到的挺多的，比如lookup-method和replaced-method，以及aop、spring中的事务、spring中解析@configuration注解等等，这些都是依靠代理来实现的。
+</p>
+（2）动态代理技术的实现方式
+<p>
+&emsp;&emsp;
+基于接口的 JDK 动态代理；<br>
+&emsp;&emsp;
+基于继承的 CGLib 动态代理；
+</p>
 
+<h3 id="七．AOP"><a href="#七．AOP" class="headerlink" title="七．AOP"></a>七．AOP</h3><p>
+&emsp;&emsp;
+AOP（Aspect Oriented Programming）：面向切面编程，它是一种思想，它是对某一类事情的集中处理，AOP 可以说是 OOP（Object Oriented Programming，面向对象编程）的补充和完善。Spring AOP 是通过动态代理技术实现的，而动态代理是基于反射设计的。<br>
+&emsp;&emsp;
+AOP 可以实现：统一用户登录判断、统一日志记录、统一方法执行时间统计、统一的返回格式设置、统一的异常处理、事务的开启和提交等。
+</p>
       
     </div>
 
