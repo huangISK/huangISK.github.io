@@ -182,7 +182,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-03-17 08:52:52 / 修改时间：10:21:58" itemprop="dateCreated datePublished" datetime="2023-03-17T08:52:52+08:00">2023-03-17</time>
+              <time title="创建时间：2023-03-17 08:52:52 / 修改时间：20:59:43" itemprop="dateCreated datePublished" datetime="2023-03-17T08:52:52+08:00">2023-03-17</time>
             </span>
 
           
@@ -196,26 +196,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一．介绍"><a href="#一．介绍" class="headerlink" title="一．介绍"></a>一．介绍</h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h4><p>Spring MVC是一个基于Java的实现了MVC设计模式的请求驱动类型的轻量级Web框架，通过把模型-视图-控制器分离，将web层进行职责解耦，方便开发。</p>
-<h4 id="2-执行流程"><a href="#2-执行流程" class="headerlink" title="2.执行流程"></a>2.执行流程</h4><img src="\images\pic.png" width= 700 height=512 />
+          <h1 id="什么是Spring-MVC"><a href="#什么是Spring-MVC" class="headerlink" title="什么是Spring MVC"></a>什么是Spring MVC</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>
+&emsp;&emsp;
+【官网】Spring Web MVC is the original web framework built on the Servlet API and has been included in the Spring Framework from the very beginning. The formal name, "Spring Web MVC," comes from the name of its source module (spring-webmvc), but it is more commonly known as "Spring MVC".<br>
+&emsp;&emsp;
+【翻译】Spring Web MVC是基于 Servlet API 构建的轻量级原始 Web 框架，从一开始就包含在 Spring 框架中。正式名称 Spring Web MVC 来自其源模块（spring-webmvc）的名称，但更常见的名称是 Spring MVC。<br>
+&emsp;&emsp;
+Spring MVC 通过把<strong>模型-视图-控制器</strong>分离，将web层进行职责解耦，方便开发。
+</p>
+
+<h2 id="请求执行流程"><a href="#请求执行流程" class="headerlink" title="请求执行流程"></a>请求执行流程</h2><img src="\images\pic.png" width= 700 height=512 />
 【注意】springmvc是单例模式，所以在多线程访问的时候有线程安全问题，不要用同步，会影响性能的，解决方案是在控制器里面不能写字段。
 
-<h3 id="二．DispatcherServlet"><a href="#二．DispatcherServlet" class="headerlink" title="二．DispatcherServlet"></a>二．DispatcherServlet</h3><img src="\images\pic1.png" width= 800 height=512 />
+<h1 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h1><img src="\images\pic1.png" width= 800 height=512 />
 
 <p>DispatcherServlet入口：</p>
 <ul>
-<li>init()：加<br>载web.xml中DispatcherServlet配置，调用initServletBean()（继承父类）。</li>
+<li>init()：<br>加载web.xml中DispatcherServlet配置，调用initServletBean()（继承父类）。</li>
 <li>initServletBean()：<br>调用initWebApplicationContext()（继承父类）。</li>
 <li>initWebApplicationContext()：<br>初始化IOC容器，调用createWebApplicationContext方法（继承父类）。</li>
 <li>createWebApplicationContext(WebApplicationContext)：<br>获取或生成容器，调用onRefresh方法。</li>
 <li>onRefresh(ApplicationContext)：<br>用于在ApplicationContext刷新后进行策略组件的初始化。</li>
-<li>initStrategies(ApplicationContext)：<br>初始化9个策略组件。</li>
+<li><strong>initStrategies(ApplicationContext)</strong> ：<br>初始化9个策略组件。</li>
 <li>doService()：<br>设置request的相关属性。</li>
 <li>doDispatch()：<br>DispatcherServlet获取HandlerMapping和HandlerAdapter。</li>
 <li>processDispatchResult(processedRequest, response, mappedHandler, mv,dispatchException)<br>异常分析，存在ModelAndView后调用render方法进行渲染，渲染完成后调用HandlerInterceptor拦截器的afterCompletion方法。</li>
-<li>（10）render():<br>解析视图名称获取对应View，调用View的render方法通过Model来渲染视图。</li>
+<li>render():<br>解析视图名称获取对应View，调用View的render方法通过Model来渲染视图。</li>
 </ul>
-<h3 id="三．SpringMVC的九大组件"><a href="#三．SpringMVC的九大组件" class="headerlink" title="三．SpringMVC的九大组件"></a>三．SpringMVC的九大组件</h3><ol>
+<h1 id="SpringMVC的九大组件"><a href="#SpringMVC的九大组件" class="headerlink" title="SpringMVC的九大组件"></a>SpringMVC的九大组件</h1><ol>
 <li>HandlerMapping<br>根据request找到相应的处理器。因为Handler（Controller）有两种形式，一种是基于类的Handler，另一种是基于Method的Handler（也就是我们常用的）。</li>
 <li>HandlerAdapter<br>调用Handler的适配器。如果把Handler（Controller）当做工具的话，那么HandlerAdapter就相当于干活的工人。</li>
 <li>HandlerExceptionResolver<br>对异常的处理。</li>
@@ -226,16 +234,28 @@
 <li>MultipartResolver<br>处理上传请求，将普通的request封装成MultipartHttpServletRequest。</li>
 <li>FlashMapManager<br>用于管理FlashMap，FlashMap用于在redirect重定向中传递参数。</li>
 </ol>
-<h3 id="四．HandlerMapping"><a href="#四．HandlerMapping" class="headerlink" title="四．HandlerMapping"></a>四．HandlerMapping</h3><h4 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h4><p>HandlerMapping 功能就是根据请求匹配到对应的 Handler，然后将找到的 Handler 和所有匹配的 HandlerInterceptor（拦截器）绑定到创建的 HandlerExecutionChain 对象上并返回。我们常见的No mapping found for HTTP request with URI……错误也是因为HandlerMapping没有找到对应handler。HandlerMapping 只是一个接口类，不同的实现类有不同的匹对方式，根据功能的不同我们需要在 SpringMVC 容器中注入不同的映射处理器 HandlerMapping。</p>
-<h4 id="2-dispatchServlet的初始化"><a href="#2-dispatchServlet的初始化" class="headerlink" title="2.dispatchServlet的初始化"></a>2.dispatchServlet的初始化</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private void initHandlerMappings(ApplicationContext context) &#123;</span><br><span class="line">	容器被初始化的时候会被调用，加载容器中注入的 HandlerMapping。</span><br><span class="line">   其实常用到的 HandlerMapping 都是由 &lt;mvc:annotation-driven /&gt; 标签帮我们注册的(包括 RequestMappingHandlerMapping 和 BeanNameUrlHandlerMapping)，</span><br><span class="line">   如果没有写该标签系统也会帮我们注入默认的映射器，当然也有些需要我们自己手动注入。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>HandlerMapping 接口中只有一个方法getHandler。DispatcherServlet在处理请求得时候，会调用AbstractHandlerMapping的getHandler()方法将通用拦截器以及根据Url匹配得拦截器放入集合中，最后将handle处理器和拦截器集合封装成HandlerExecutionChain对象返回：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Override </span><br><span class="line">@Nullable </span><br><span class="line">public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception&#123;</span><br><span class="line">  // &lt;1&gt; 获得处理器（HandlerMethod 或者 HandlerExecutionChain），该方法是抽象方法，由子类实现 </span><br><span class="line">  Object handler = getHandlerInternal(request); </span><br><span class="line">  // &lt;2&gt; 获得不到，则使用默认处理器 </span><br><span class="line">  // &lt;3&gt; 还是获得不到，则返回 null </span><br><span class="line">  // &lt;4&gt; 如果找到的处理器是 String 类型，则从 Spring 容器中找到对应的 Bean 作为处理器 </span><br><span class="line">  // &lt;5&gt; 创建 HandlerExecutionChain 对象（包含处理器和拦截器） </span><br><span class="line">  // ... 省略相关代码 </span><br><span class="line"><span class="built_in">return</span> executionChain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>【注】getHandlerInternal(HttpServletRequest request) 抽象方法，获取请求对应的处理器，该方法由子类去实现。</p>
-<h4 id="3-HandlerMapping接口"><a href="#3-HandlerMapping接口" class="headerlink" title="3.HandlerMapping接口"></a>3.HandlerMapping接口</h4><img src="\images\pc2.png" width= 900 height=700 />
+<h1 id="HandlerMapping"><a href="#HandlerMapping" class="headerlink" title="HandlerMapping"></a>HandlerMapping</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>
+&emsp;&emsp;
+HandlerMapping 功能就是根据请求匹配到对应的 Handler，然后将找到的 Handler 和所有匹配的 HandlerInterceptor（拦截器）绑定到创建的 HandlerExecutionChain 对象上并返回。<br>
+&emsp;&emsp;
+HandlerMapping 只是一个接口类，不同的实现类有不同的匹对方式，根据功能的不同我们需要在 SpringMVC 容器中注入不同的映射处理器 HandlerMapping。<br>
+&emsp;&emsp;
+我们常见的No mapping found for HTTP request with URI……错误也是因为HandlerMapping没有找到对应handler。
+</p>
 
-<h5 id="（1）BeanNameUrlHandlerMapping"><a href="#（1）BeanNameUrlHandlerMapping" class="headerlink" title="（1）BeanNameUrlHandlerMapping"></a>（1）BeanNameUrlHandlerMapping</h5><p>该实现类可以把容器中name以”&#x2F;“ 开头的Bean注册为handler。在xml文件中注册：</p>
+<h2 id="dispatchServlet的初始化"><a href="#dispatchServlet的初始化" class="headerlink" title="dispatchServlet的初始化"></a>dispatchServlet的初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private void initHandlerMappings(ApplicationContext context) &#123;</span><br><span class="line">	容器被初始化的时候会被调用，加载容器中注入的 HandlerMapping。</span><br><span class="line">   其实常用到的 HandlerMapping 都是由 &lt;mvc:annotation-driven /&gt; 标签帮我们注册的(包括 RequestMappingHandlerMapping 和 BeanNameUrlHandlerMapping)，</span><br><span class="line">   如果没有写该标签系统也会帮我们注入默认的映射器，当然也有些需要我们自己手动注入。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>
+&emsp;&emsp;
+HandlerMapping 接口中只有一个方法getHandler。DispatcherServlet在处理请求得时候，会调用AbstractHandlerMapping的getHandler()方法将通用拦截器以及根据Url匹配得拦截器放入集合中，最后将handle处理器和拦截器集合封装成HandlerExecutionChain对象返回：
+</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Override </span><br><span class="line">@Nullable </span><br><span class="line">public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception&#123;</span><br><span class="line">  // &lt;1&gt; 获得处理器（HandlerMethod 或者 HandlerExecutionChain），该方法是抽象方法，由子类实现 </span><br><span class="line">  Object handler = getHandlerInternal(request); </span><br><span class="line">  // &lt;2&gt; 获得不到，则使用默认处理器 </span><br><span class="line">  // &lt;3&gt; 还是获得不到，则返回 null </span><br><span class="line">  // &lt;4&gt; 如果找到的处理器是 String 类型，则从 Spring 容器中找到对应的 Bean 作为处理器 </span><br><span class="line">  // &lt;5&gt; 创建 HandlerExecutionChain 对象（包含处理器和拦截器） </span><br><span class="line">  // ... </span><br><span class="line"><span class="built_in">return</span> executionChain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+【注】getHandlerInternal(HttpServletRequest request) 抽象方法，获取请求对应的处理器，该方法由子类去实现。
+## HandlerMapping接口
+<img src="\images\pc2.png" width= 852 height=512 />
+
+<h3 id="BeanNameUrlHandlerMapping"><a href="#BeanNameUrlHandlerMapping" class="headerlink" title="BeanNameUrlHandlerMapping"></a>BeanNameUrlHandlerMapping</h3><p>该实现类可以把容器中name以”&#x2F;“ 开头的Bean注册为handler。在xml文件中注册：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean name=<span class="string">&quot;/hello.html&quot;</span> class=<span class="string">&quot;com.xxx.controller.HelloController&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="（2）SimpleUrlHandlerMapping"><a href="#（2）SimpleUrlHandlerMapping" class="headerlink" title="（2）SimpleUrlHandlerMapping"></a>（2）SimpleUrlHandlerMapping</h5><p>在xml文件中注册：<br><strong>prop key方式</strong></p>
+<h3 id="SimpleUrlHandlerMapping"><a href="#SimpleUrlHandlerMapping" class="headerlink" title="SimpleUrlHandlerMapping"></a>SimpleUrlHandlerMapping</h3><p>在xml文件中注册：<br><strong>prop key方式</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans ...&gt; </span><br><span class="line">    &lt;bean class=<span class="string">&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;</span>&gt;</span><br><span class="line">       &lt;property name=<span class="string">&quot;mappings&quot;</span>&gt;</span><br><span class="line">        &lt;props&gt;</span><br><span class="line">           &lt;prop key=<span class="string">&quot;/welcome.htm&quot;</span>&gt;welcomeController&lt;/prop&gt;</span><br><span class="line">           &lt;prop key=<span class="string">&quot;/*/welcome.htm&quot;</span>&gt;welcomeController&lt;/prop&gt;</span><br><span class="line">           &lt;prop key=<span class="string">&quot;/helloGuest.htm&quot;</span>&gt;helloGuestController&lt;/prop&gt;</span><br><span class="line">         &lt;/props&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">&quot;welcomeController&quot;</span> </span><br><span class="line">        class=<span class="string">&quot;com.mkyong.common.controller.WController&quot;</span> /&gt;        </span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">&quot;helloGuestController&quot;</span> </span><br><span class="line">        class=<span class="string">&quot;com.mkyong.common.controller.HController&quot;</span> /&gt;     </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>value方式</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans ...&gt; </span><br><span class="line">    &lt;bean class=<span class="string">&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;</span>&gt;</span><br><span class="line">       &lt;property name=<span class="string">&quot;mappings&quot;</span>&gt;</span><br><span class="line">        &lt;value&gt;</span><br><span class="line">           /welcome.htm=welcomeController</span><br><span class="line">           /*/welcome.htm=welcomeController</span><br><span class="line">           /helloGuest.htm=helloGuestController</span><br><span class="line">        &lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">&quot;welcomeController&quot;</span> </span><br><span class="line">        class=<span class="string">&quot;com.mkyong.common.controller.WController&quot;</span> /&gt;        </span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">&quot;helloGuestController&quot;</span> </span><br><span class="line">        class=<span class="string">&quot;com.mkyong.common.controller.HController&quot;</span> /&gt;           </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
@@ -243,18 +263,136 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans ...&gt; </span><br><span class="line">...</span><br><span class="line">&lt;property name=<span class="string">&quot;mappings&quot;</span>&gt;</span><br><span class="line">    &lt;map&gt;</span><br><span class="line">        &lt;entry key=<span class="string">&quot;/welcome&quot;</span> value=<span class="string">&quot;welcomeController&quot;</span> /&gt;</span><br><span class="line">        &lt;entry key=<span class="string">&quot;/hello&quot;</span> value=<span class="string">&quot;helloGuestController&quot;</span> /&gt;</span><br><span class="line">        &lt;entry key=<span class="string">&quot;/hi&quot;</span> value=<span class="string">&quot;helloLuBanController&quot;</span> /&gt;</span><br><span class="line">        &lt;entry key=<span class="string">&quot;/login&quot;</span> value=<span class="string">&quot;loginHttpServlet&quot;</span> /&gt;</span><br><span class="line">    &lt;/map&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>properties 配置文件</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans ...&gt; </span><br><span class="line">...</span><br><span class="line">&lt;property name=<span class="string">&quot;mappings&quot;</span>&gt;</span><br><span class="line">	&lt;bean class=<span class="string">&quot;org.springframework.beans.factory.config.PropertiesFactoryBean&quot;</span>&gt;</span><br><span class="line">		&lt;property name=<span class="string">&quot;location&quot;</span> value=<span class="string">&quot;classpath:spring/url-mapping.properties&quot;</span>/&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> ...</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-<p>【url-mapping.properties】<br>  &#x2F;welcome&#x3D;  welcomeController<br>  &#x2F;hello	&#x3D;  helloGuestController<br>  &#x2F;hi		&#x3D;  helloLuBanController<br>  &#x2F;login	&#x3D;  loginHttpServlet</p>
-<h5 id="（3）RequestMappingHandlerMapping"><a href="#（3）RequestMappingHandlerMapping" class="headerlink" title="（3）RequestMappingHandlerMapping"></a>（3）RequestMappingHandlerMapping</h5><p>顾名思义就是针对@RequestMapping注解。如果想要 RequestMapping 注解生效，必须在 xml 文件中配置&lt; mvc:annotation-driven&#x2F;&gt;。<br>【扩展】@RequestMapping</p>
+<p>url-mapping.properties:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/welcome = welcomeController</span><br><span class="line">/hello = helloGuestController</span><br><span class="line">/hi = helloLuBanController</span><br><span class="line">/login = loginHttpServlet</span><br></pre></td></tr></table></figure>
+
+<h3 id="RequestMappingHandlerMapping"><a href="#RequestMappingHandlerMapping" class="headerlink" title="RequestMappingHandlerMapping"></a>RequestMappingHandlerMapping</h3><p>
+&emsp;&emsp;
+顾名思义就是针对@RequestMapping注解。如果想要 RequestMapping 注解生效，必须在 xml 文件中配置< mvc:annotation-driven/>。
+</p>
+
+<p>【扩展】RequestMapping注解</p>
 <ul>
-<li>value属性<br>@RequestMapping(value&#x3D;”&#x2F;example”)：一对一<br>@RequestMapping(value &#x3D; {“&#x2F;page1”, “&#x2F;page2”, “&#x2F;page3”})：多对一</li>
-<li>name<br>相当于方法的注释，使方法更易理解</li>
-<li>method 属性<br>用于表示该方法支持哪些 HTTP 请求，例如:<br>@RequestMapping(method &#x3D; RequestMethod.GET)<br>@RequestMapping(method &#x3D; {RequestMethod.GET, RequestMethod.DELETE})<br>请求方式不符合会报错。</li>
-<li>params 属性（了解）<img src="\images\pic3.png" width= 900 height=500 /></li>
-<li>consumers 属性（了解）<br>用于指定处理请求的提交内容类型（Content-Type），例如：application&#x2F;json、text&#x2F;html。</li>
-<li>header 属性（了解）<img src="\images\pic4.png" width= 900 height=500 /></li>
+<li>value属性<br>@RequestMapping(value &#x3D;”&#x2F;example”)：一对一<br>@RequestMapping(value &#x3D; {“&#x2F;page1”,”&#x2F;page2”,”&#x2F;page3”})：多对一</li>
+<li>name<br>注释，使方法更易理解.</li>
+<li>method 属性<br>用于表示该方法支持哪些 HTTP 请求，例如:<br>@RequestMapping(method &#x3D; RequestMethod.GET)<br>@RequestMapping(method &#x3D; {RequestMethod.GET, RequestMethod.DELETE})<br>请求方式不符合会报错.</li>
+<li>params 属性（了解）<br> 要求所匹配的请求是否必须携带 param 参数，并且可以指定携带参数的值.</li>
+<li>consumers 属性（了解）<br>用于指定处理请求的提交内容类型（Content-Type），例如：application&#x2F;json、text&#x2F;html.</li>
+<li>header 属性（了解）<br>要求所匹配的请求是否必须携带请求头信息，并且可以指定请求头信息的值.</li>
 </ul>
-<h3 id="五．HandlerAdapter"><a href="#五．HandlerAdapter" class="headerlink" title="五．HandlerAdapter"></a>五．HandlerAdapter</h3><p>根据 Handler 来找到支持它的 HandlerAdapter，通过 HandlerAdapter 执行这个 Handler 得到 ModelAndView 对象。dispatcherServlet就是通过这个接口来访问handler的，而不是直接去访问真正的实际的处理器，这样做的好处是：处理器程序允许是任意的Object；集成第三方请求处理器的时候，本处代码也无需修改。此接口不适用于应用程序开发人员。</p>
-<h3 id="六．SpringMVC中请求参数的接收"><a href="#六．SpringMVC中请求参数的接收" class="headerlink" title="六．SpringMVC中请求参数的接收"></a>六．SpringMVC中请求参数的接收</h3>
+<h1 id="HandlerAdapter"><a href="#HandlerAdapter" class="headerlink" title="HandlerAdapter"></a>HandlerAdapter</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>
+&emsp;&emsp;
+根据 Handler 来找到支持它的 HandlerAdapter，通过 HandlerAdapter 执行这个 Handler 得到 ModelAndView 对象。dispatcherServlet就是通过这个接口来访问handler的，而不是直接去访问真正的实际的处理器，这样做的好处是：处理器程序允许是任意的Object；集成第三方请求处理器的时候，本处代码也无需修改。此接口不适用于应用程序开发人员。
+</p>
+
+<h2 id="为何需要使用HandlerAdapter适配"><a href="#为何需要使用HandlerAdapter适配" class="headerlink" title="为何需要使用HandlerAdapter适配"></a>为何需要使用HandlerAdapter适配</h2><p>
+&emsp;&emsp;
+Spring MVC的Handler（Controller接口，HttpRequestHandler，Servlet、@RequestMapping）有四种表现形式，在Handler不确定是什么方式的时候（可能是方法、也可能是类），适配器这种设计模式就能模糊掉具体的实现，从而就能提供统一访问接口。<br>
+&emsp;&emsp;
+处理器Handler需要程序员去写代码处理逻辑的，而处理器适配器（HandlerAdapter）会把处理器包装成适配器，这样就可以支持多种类型的处理器。
+</p>
+
+<h2 id="与HandlerMapping区别"><a href="#与HandlerMapping区别" class="headerlink" title="与HandlerMapping区别"></a>与HandlerMapping区别</h2><p>
+（1）HandlerMapping的作用主要是根据request请求匹配/映射上能够处理当前request的handler。<br>
+（2）HandlerAdapter的作用在于将request中的各个属性，如request param适配为handler能够处理的形式，参数绑定、数据校验、内容协商…几乎所有的web层问题都在在这里完成的。
+</p>
+
+<h2 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h2><img src="\images\pic6.png" width= 800 height=150 />
+<p>
+&emsp;&emsp;
+重点是 RequestMappingHandlerAdapter，作为适配 @RequestMapping 注解标注的 Handler，它是自 Spring3.1 新增的一个适配器类，拥有数据绑定、数据转换、数据校验、内容协商…等一系列非常高级的功能。
+</p>
+
+<h1 id="SpringMVC中请求参数的接收"><a href="#SpringMVC中请求参数的接收" class="headerlink" title="SpringMVC中请求参数的接收"></a>SpringMVC中请求参数的接收</h1><h2 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h2><p>
+&emsp;&emsp;
+对于 HttpServletRequest 和 HttpServletResponse，我们可以调用 getInputStream 和 getOutputStream 来直接获取请求信息，不过返回值只是一段字符串，对于开发人员来说，处理一个对象肯定比处理一个字符串要方便得多，也好理解得多，所以对数据的封装转换是不可避免的事。<br>
+&emsp;&emsp;
+SpringMVC通过反射的方式调用Controller的方法，然后将请求的参数解析，并和方法的形参做匹配并传递过去。一般的表单或者JSON数据的请求都是相对简单的，一些复杂的处理主要包括日期、URL路径参数、文件上传、数组或者列表类型数据等。<br>
+&emsp;&emsp;
+SpringMVC 中处理控制器参数的接口是 HandlerMethodArgumentResolver ，此接口有众多子类，分别处理不同（注解类型）的参数。
+</p>
+
+<h2 id="HandlerMethodArgumentResolver"><a href="#HandlerMethodArgumentResolver" class="headerlink" title="HandlerMethodArgumentResolver"></a>HandlerMethodArgumentResolver</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>
+&emsp;&emsp;
+接口：用于在给定请求的上下文中将方法参数解析为参数值。简单的理解为：它负责处理你Handler方法里的所有入参：包括自动封装、自动赋值、校验等等。Spring MVC 内置了非常多的实现类，当然你还可以自定义和注册。<br>
+&emsp;&emsp;
+有个形象的公式：HandlerMethodArgumentResolver = HandlerMethod + Argument(参数) + Resolver(解析器)
+</p>
+
+<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface HandlerMethodArgumentResolver &#123;</span><br><span class="line">    boolean	supportsParameter(MethodParameter parameter);</span><br><span class="line">    Object 	resolveArgument(MethodParameter parameter, ...) throws Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>supportsParameter（支持参数）：可以设置一些标志，表示你这个分解器可以处理这些参数，返回ture才执行resolveArgument()函数</li>
+<li>resolveArgument：真正用于处理参数分解的方法，返回的Object就是controller方法上的形参对象。</li>
+</ul>
+<p>PS：ArgumentResolver在初始化时有一个默认的顺序，如果多个ArgumentResolver可以解析某一种类型，以顺序在前面的先解析。</p>
+<h3 id="常见的-HandlerMethodArgumentResolver实现类"><a href="#常见的-HandlerMethodArgumentResolver实现类" class="headerlink" title="常见的 HandlerMethodArgumentResolver实现类"></a>常见的 HandlerMethodArgumentResolver实现类</h3><h4 id="RequestParamMethodArgumentResolver"><a href="#RequestParamMethodArgumentResolver" class="headerlink" title="RequestParamMethodArgumentResolver"></a>RequestParamMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用 @RequestParam 标注，且 name 属性有值，参数通常为普通类型、Map 类型；或 MultipartFile、Part 类型，或 MultipartFile、Part 这两种类型的集合、数组。<br>
+&emsp;&emsp;
+【扩】RequestParam 注解<br>
+&emsp;&emsp;
+value：参数名字，即入参的请求参数名字。指定 value 值时，可以获取request中指定参数的值，可以解决前后端参数名称不一致。未指定 value 值，如果参数类型为 Map 或 MultiValueMap 时，用来接收request中所有参数的值。<br>
+&emsp;&emsp;
+required：默认为 true，如果前台不传递此参数，后台会报错404。如果设置为 false，如果不传，默认为 null。<br>
+&emsp;&emsp;
+defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false。<br>
+</p>
+ 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(<span class="string">&quot;/test1&quot;</span>)</span><br><span class="line">@ResponseBody</span><br><span class="line">public Map&lt;String, Object&gt; test1(@RequestParam(<span class="string">&quot;rqname&quot;</span>) String name,</span><br><span class="line">                           @RequestParam(<span class="string">&quot;rqage&quot;</span>) int age,</span><br><span class="line">                           @RequestParam(<span class="string">&quot;rqp1&quot;</span>) String[] p1Map,</span><br><span class="line">                           @RequestParam Map&lt;String, String&gt; requestParams1,</span><br><span class="line">                           @RequestParam MultiValueMap requestParams2)&#123;</span><br><span class="line">    Map&lt;String, Object&gt; result = new LinkedHashMap&lt;&gt;();</span><br><span class="line">    result.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">    result.put(<span class="string">&quot;age&quot;</span>, age);</span><br><span class="line">    result.put(<span class="string">&quot;p1Map&quot;</span>, p1Map);</span><br><span class="line">    result.put(<span class="string">&quot;requestParams1&quot;</span>, requestParams1);</span><br><span class="line">    result.put(<span class="string">&quot;requestParams2&quot;</span>, requestParams2);</span><br><span class="line">    <span class="built_in">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="RequestParamMapMethodArgumentResolver"><a href="#RequestParamMapMethodArgumentResolver" class="headerlink" title="RequestParamMapMethodArgumentResolver"></a>RequestParamMapMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用 @RequestParam 标注，且 name 属性没有值，参数为 Map 类型；参数的值从 request 的参数中取值，Map 中的 key 对应参数名称，value 对应参数的值
+</p>
+
+<h4 id="PathVariableMapMethodArgumentResolver"><a href="#PathVariableMapMethodArgumentResolver" class="headerlink" title="PathVariableMapMethodArgumentResolver"></a>PathVariableMapMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用@PathVariable 标注，参数通常为基本类型
+</p>
+
+<h4 id="RequestHeaderMethodArgumentResolver"><a href="#RequestHeaderMethodArgumentResolver" class="headerlink" title="RequestHeaderMethodArgumentResolver"></a>RequestHeaderMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用@RequestHeader 标注，参数通常为 Map、MultiValueMap、HttpHeaders 类型<br>
+&emsp;&emsp;
+【扩】@RequestHeader注解<br>
+&emsp;&emsp;
+将HTTP请求头中的变量值映射到控制器的参数中（比如Host、From、User-Agent等），参数：value，required，defaultValue，用法同@RequestParam。
+</p>
+
+<h4 id="ServletCookieValueMethodArgumentResolver"><a href="#ServletCookieValueMethodArgumentResolver" class="headerlink" title="ServletCookieValueMethodArgumentResolver"></a>ServletCookieValueMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用@CookieValue 标注，参数为普通类型或者 Cookie 类型
+</p>
+
+<h4 id="ModelMethodProcessor"><a href="#ModelMethodProcessor" class="headerlink" title="ModelMethodProcessor"></a>ModelMethodProcessor</h4><p>
+&emsp;&emsp;
+  参数为 Model 类型，控制器中可以调用 model.addAttribute 想模型中放数据，最终这些数据都会通过 request.setAttribute 复制到 request 中
+</p>
+
+<h4 id="MapMethodProcessor"><a href="#MapMethodProcessor" class="headerlink" title="MapMethodProcessor"></a>MapMethodProcessor</h4><p>
+&emsp;&emsp;
+  处理参数为 Map 类型，但没有标注任何注解的情况，它的执行顺序是很靠后的，所以有点兜底的意思。这个处理器同时也解释了：为何你方法入参上写个Map、Model及ModelMap （都是org.springframework.validation.support.BindingAwareModelMap类型）等等就可以非常便捷的获取到模型的值。
+</p>
+
+<h4 id="RequestAttributeMethodArgumentResolver"><a href="#RequestAttributeMethodArgumentResolver" class="headerlink" title="RequestAttributeMethodArgumentResolver"></a>RequestAttributeMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用@RequestAttribute
+</p>
+
+<h4 id="SessionAttributeMethodArgumentResolver"><a href="#SessionAttributeMethodArgumentResolver" class="headerlink" title="SessionAttributeMethodArgumentResolver"></a>SessionAttributeMethodArgumentResolver</h4><p>
+&emsp;&emsp;
+  参数需使用@SessionAttribute
+</p>
+
+<h4 id="ServletModelAttributeMethodProcessor"><a href="#ServletModelAttributeMethodProcessor" class="headerlink" title="ServletModelAttributeMethodProcessor"></a>ServletModelAttributeMethodProcessor</h4><p>
+&emsp;&emsp;
+  为我们自定义的 javabean 赋值
+</p>
+
+<h4 id="RequestResponseBodyMethodProcessor"><a href="#RequestResponseBodyMethodProcessor" class="headerlink" title="RequestResponseBodyMethodProcessor"></a>RequestResponseBodyMethodProcessor</h4><p>
+&emsp;&emsp;
+  参数需使用@RequestBody 标注
+</p>
       
     </div>
 
@@ -304,7 +442,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-17 19:09:37" itemprop="dateModified" datetime="2023-03-17T19:09:37+08:00">2023-03-17</time>
+                <time title="修改时间：2023-03-17 19:19:57" itemprop="dateModified" datetime="2023-03-17T19:19:57+08:00">2023-03-17</time>
               </span>
 
           
@@ -318,7 +456,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一．Spring-简介"><a href="#一．Spring-简介" class="headerlink" title="一．Spring 简介"></a>一．Spring 简介</h3><p>
+          <h1 id="一．Spring-简介"><a href="#一．Spring-简介" class="headerlink" title="一．Spring 简介"></a>一．Spring 简介</h1><p>
 &emsp;&emsp;spring是一个java企业级开发框架，包含了诸多技术，包括：控制反转、依赖注入、面向切面编程（核心概念）等，同时还有spring事务管理、通过spring集成其他框架、springmvc、springboot、springcloud这些简化开发的技术。<br>
 &emsp;&emsp;
 Spring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。为了降低Java开发的复杂性，Spring采取了以下4种关键策略：<br>
@@ -328,7 +466,7 @@ Spring最根本的使命是解决企业级应用开发的复杂性，即简化Ja
 &emsp;&emsp;（4）通过切面和模板减少样板式代码；
 </p>
 
-<h3 id="二．总体架构"><a href="#二．总体架构" class="headerlink" title="二．总体架构"></a>二．总体架构</h3><img src="\images\pic5.png" width= 700 height=512 />
+<h1 id="二．总体架构"><a href="#二．总体架构" class="headerlink" title="二．总体架构"></a>二．总体架构</h1><img src="\images\pic5.png" width= 700 height=512 />
 
 <ol>
 <li>核心容器（Core Container）<p>
@@ -360,17 +498,17 @@ Web 上下文模块建立在应用程序上下文模块之上，为基于 Web �
 主要为测试提供支持的，支持使用 JUnit 或 TestNG 对 Spring 组件进行单元测试和集成测试。
 </p></li>
 </ol>
-<h3 id="三．IOC-Inversion-of-Control-控制反转"><a href="#三．IOC-Inversion-of-Control-控制反转" class="headerlink" title="三．IOC-Inversion of Control 控制反转"></a>三．IOC-Inversion of Control 控制反转</h3><h5 id="1-思想"><a href="#1-思想" class="headerlink" title="1.思想"></a>1.思想</h5><p>
+<h1 id="三．IOC-Inversion-of-Control-控制反转"><a href="#三．IOC-Inversion-of-Control-控制反转" class="headerlink" title="三．IOC-Inversion of Control 控制反转"></a>三．IOC-Inversion of Control 控制反转</h1><h2 id="1-思想"><a href="#1-思想" class="headerlink" title="1.思想"></a>1.思想</h2><p>
 &emsp;&emsp;
 由容器来创建对象（通过读取xml然后反射创建对象），IOC的底层就是对象工厂。
 </p>
 
-<h5 id="2-IOC容器实现（两个接口）"><a href="#2-IOC容器实现（两个接口）" class="headerlink" title="2.IOC容器实现（两个接口）"></a>2.IOC容器实现（两个接口）</h5><h6 id="（1）BeanFactory"><a href="#（1）BeanFactory" class="headerlink" title="（1）BeanFactory"></a>（1）BeanFactory</h6><p>
+<h2 id="2-IOC容器实现（两个接口）"><a href="#2-IOC容器实现（两个接口）" class="headerlink" title="2.IOC容器实现（两个接口）"></a>2.IOC容器实现（两个接口）</h2><h3 id="（1）BeanFactory"><a href="#（1）BeanFactory" class="headerlink" title="（1）BeanFactory"></a>（1）BeanFactory</h3><p>
 &emsp;&emsp;
 spring内部接口，不提供给开发人员使用，加载配置文件的时候不会去创建对象，在获取（使用）对象的时候才会去创建对象。
 </p>
 
-<h6 id="（2）ApplicationContext"><a href="#（2）ApplicationContext" class="headerlink" title="（2）ApplicationContext"></a>（2）ApplicationContext</h6><p>
+<h3 id="（2）ApplicationContext"><a href="#（2）ApplicationContext" class="headerlink" title="（2）ApplicationContext"></a>（2）ApplicationContext</h3><p>
 &emsp;&emsp;
 BeanFactory的子接口，提供更多强大的功能，一般由开发人员进行使用，加载配置文件的时候就创建对象。
 ApplicationContext接口常用实现类：
@@ -383,13 +521,13 @@ ApplicationContext接口常用实现类：
 <li>AnnotationConfigWebApplicationContext	<br>专门为web应用准备的，适用于注解方式。</li>
 <li>XmlWebApplicationContext	<br>从web应用下的一个或多个xml配置文件加载上下文定义，适用于xml配置方式。</li>
 </ul>
-<h3 id="四．DI-Dependency-Injection"><a href="#四．DI-Dependency-Injection" class="headerlink" title="四．DI-Dependency Injection"></a>四．DI-Dependency Injection</h3><h5 id="1-Dependency-Injection"><a href="#1-Dependency-Injection" class="headerlink" title="1.Dependency Injection"></a>1.Dependency Injection</h5><p>
+<h1 id="四．DI-Dependency-Injection"><a href="#四．DI-Dependency-Injection" class="headerlink" title="四．DI-Dependency Injection"></a>四．DI-Dependency Injection</h1><h2 id="1-Dependency-Injection"><a href="#1-Dependency-Injection" class="headerlink" title="1.Dependency Injection"></a>1.Dependency Injection</h2><p>
 &emsp;&emsp;
 依赖注入是一种消除类之间依赖关系的设计模式。例如，A类要依赖B类，以前我们是直接在A类new一个B类，而现在是则把这种依赖关系写在xml配置文件，然后由Spring容器根据配置信息来创建、管理bean类，通过容器把B类注入到A类里。
 </p>
 
-<h5 id="2-注入方式"><a href="#2-注入方式" class="headerlink" title="2.注入方式"></a>2.注入方式</h5><p>主要有三种：构造方法注入（Construct注入），setter注入，基于注解的注入（接口注入）。</p>
-<h6 id="（1）构造方法注入"><a href="#（1）构造方法注入" class="headerlink" title="（1）构造方法注入"></a>（1）构造方法注入</h6><p>① 根据构造器参数索引注入</p>
+<h2 id="2-注入方式"><a href="#2-注入方式" class="headerlink" title="2.注入方式"></a>2.注入方式</h2><p>主要有三种：构造方法注入（Construct注入），setter注入，基于注解的注入（接口注入）。</p>
+<h3 id="（1）构造方法注入"><a href="#（1）构造方法注入" class="headerlink" title="（1）构造方法注入"></a>（1）构造方法注入</h3><p>① 根据构造器参数索引注入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;xxx&quot;</span> class=<span class="string">&quot;xxx&quot;</span>&gt;</span><br><span class="line">  &lt;constructor-arg index=<span class="string">&quot;0&quot;</span> value=<span class="string">&quot;xxx&quot;</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 <p>
 &emsp;&emsp;
@@ -410,13 +548,13 @@ java通过反射的方式可以获取到方法的参数名称，不过源码中�
 @ConstructorProperties({"第一个参数名称", ... "第n个参数的名称"})
 </p>
 
-<h6 id="（2）set注入"><a href="#（2）set注入" class="headerlink" title="（2）set注入"></a>（2）set注入</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userDao&quot;</span> class=<span class="string">&quot;com.my.spring.dao.impl.userDao&quot;</span>&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userService&quot;</span> class=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">  &lt;property name=<span class="string">&quot;XXX&quot;</span> ref=<span class="string">&quot;userDao&quot;</span> /&gt;</span><br><span class="line">&lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">public class UserService&#123;</span><br><span class="line">   		...</span><br><span class="line">    public void setXXX(userDao ud) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="（2）set注入"><a href="#（2）set注入" class="headerlink" title="（2）set注入"></a>（2）set注入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userDao&quot;</span> class=<span class="string">&quot;com.my.spring.dao.impl.userDao&quot;</span>&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;userService&quot;</span> class=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">  &lt;property name=<span class="string">&quot;XXX&quot;</span> ref=<span class="string">&quot;userDao&quot;</span> /&gt;</span><br><span class="line">&lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">public class UserService&#123;</span><br><span class="line">   		...</span><br><span class="line">    public void setXXX(userDao ud) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>
 &emsp;&emsp;
 当然还可以注入其他类型如String、list、set、map、array、props（相当于键值都是String类型的Map），注意property标签里的ref要换成value。
 </p>
 
-<h6 id="（3）基于注解"><a href="#（3）基于注解" class="headerlink" title="（3）基于注解"></a>（3）基于注解</h6><p>注册bean注解：</p>
+<h3 id="（3）基于注解"><a href="#（3）基于注解" class="headerlink" title="（3）基于注解"></a>（3）基于注解</h3><p>注册bean注解：</p>
 <ul>
 <li>@Component：可以用于注册所有bean</li>
 <li>@Repository：主要用于注册dao层的bean</li>
@@ -424,20 +562,20 @@ java通过反射的方式可以获取到方法的参数名称，不过源码中�
 <li>@Service：主要用于注册服务层的bean<br>注入：</li>
 <li>@Autowired<br>有三个属性：Constructor，byType，byName。默认按照byType注入。</li>
 </ul>
-<h5 id="3-自动注入"><a href="#3-自动注入" class="headerlink" title="3.自动注入"></a>3.自动注入</h5><p>xml中可以在bean元素中通过autowire属性来设置自动注入的方式（还可以使用手动的方式自动注入进行覆盖，手动的优先级更高一些）：<br><code>&lt;bean id=&quot;&quot; class=&quot;xxx&quot; autowire=&quot;byType|byName|constructor|default&quot; /&gt;</code></p>
+<h2 id="3-自动注入"><a href="#3-自动注入" class="headerlink" title="3.自动注入"></a>3.自动注入</h2><p>xml中可以在bean元素中通过autowire属性来设置自动注入的方式（还可以使用手动的方式自动注入进行覆盖，手动的优先级更高一些）：<br><code>&lt;bean id=&quot;&quot; class=&quot;xxx&quot; autowire=&quot;byType|byName|constructor|default&quot; /&gt;</code></p>
 <ul>
 <li>byteName：按照名称进行注入</li>
 <li>byType：按类型进行注入</li>
 <li>constructor：按照构造方法进行注入</li>
 <li>default：默认注入方式</li>
 </ul>
-<h3 id="五．bean"><a href="#五．bean" class="headerlink" title="五．bean"></a>五．bean</h3><p>
+<h1 id="五．bean"><a href="#五．bean" class="headerlink" title="五．bean"></a>五．bean</h1><p>
 &emsp;&emsp;
 Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring IOC容器初始化，装配，和管理。这些beans通过容器中配置的元数据创建。比如，以XML文件中的形式定义或通过注解定义。
 </p>
 
-<h5 id="1-bean的实例化"><a href="#1-bean的实例化" class="headerlink" title="1.bean的实例化"></a>1.bean的实例化</h5><p>由spring容器管理的对象统称为Bean对象。Bean就是普通的java对象。<br>（1）通过反射调用构造方法创建<br>（2）静态工厂实例化<br>（3）实例工厂实例化<br>（4）通过FactoryBean创建bean对象创建方式</p>
-<h5 id="2-bean名称别名"><a href="#2-bean名称别名" class="headerlink" title="2.bean名称别名"></a>2.bean名称别名</h5><p>名称和别名可以通过bean元素中的id和name来定义，我们可以通过ClassPathXmlApplicationContext中两个方法来获取bean的名称和别名：getBeanDefinitionNames() 和 getAliases(String beanName)，具体定义规则如下：<br>（1）当id存在的时，取id为bean的名称。</p>
+<h2 id="1-bean的实例化"><a href="#1-bean的实例化" class="headerlink" title="1.bean的实例化"></a>1.bean的实例化</h2><p>由spring容器管理的对象统称为Bean对象。Bean就是普通的java对象。<br>（1）通过反射调用构造方法创建<br>（2）静态工厂实例化<br>（3）实例工厂实例化<br>（4）通过FactoryBean创建bean对象创建方式</p>
+<h2 id="2-bean名称别名"><a href="#2-bean名称别名" class="headerlink" title="2.bean名称别名"></a>2.bean名称别名</h2><p>名称和别名可以通过bean元素中的id和name来定义，我们可以通过ClassPathXmlApplicationContext中两个方法来获取bean的名称和别名：getBeanDefinitionNames() 和 getAliases(String beanName)，具体定义规则如下：<br>（1）当id存在的时，取id为bean的名称。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;asd0&quot;</span> name=<span class="string">&quot;asd1,asd2,asd3&quot;</span> class=<span class="string">&quot;...&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>名称：asd0，别名：asd1,asd2,asd3<br>（2）当id不存在时，如果name存在（可通过分隔符分割），会按照分隔符得到一个String数组，数组的第一个元素作为bean的名称，其他作为bean的别名。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean name=<span class="string">&quot;asd1,asd2,asd3&quot;</span> class=<span class="string">&quot;...&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
@@ -446,7 +584,7 @@ Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring
 <p>名称：xxx#0，别名：xxx<br>（4）我们还可以通过alias标签来给某个bean定义别名，以下两种写法效果一样：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;asd0&quot;</span> name=<span class="string">&quot;asd1,asd2&quot;</span> class=<span class="string">&quot;...&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;asd0&quot;</span> class=<span class="string">&quot;...&quot;</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">alias</span> name=<span class="string">&quot;asd0&quot;</span> <span class="built_in">alias</span>=<span class="string">&quot;asd1&quot;</span>&gt;&lt;/alias&gt;</span><br><span class="line">&lt;<span class="built_in">alias</span> name=<span class="string">&quot;asd0&quot;</span> <span class="built_in">alias</span>=<span class="string">&quot;asd2&quot;</span>&gt;&lt;/alias&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="3-bean作用域"><a href="#3-bean作用域" class="headerlink" title="3.bean作用域"></a>3.bean作用域</h5><table>
+<h2 id="3-bean作用域"><a href="#3-bean作用域" class="headerlink" title="3.bean作用域"></a>3.bean作用域</h2><table>
 <thead>
 <tr>
 <th>作用域</th>
@@ -481,19 +619,19 @@ Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring
 <p>
 【注】Spring 框架并没有对单例 bean 进行多线程的封装处理，因此Spring框架中的单例bean不是线程安全的。
 &emsp;&emsp;
-实际上大部分时候 spring bean 无状态的（比如 dao 类），所有某种程度上来说 bean 也是安全的，但如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了，最简单的就是改变 bean 的作用域为 prototype。
+实际上大部分时候 spring bean 无状态的（比如 dao 类），所有某种程度上来说 bean 也是安全的，但如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了，最简单的就是改变 bean 的作用域为 prototype。<br>
 &emsp;&emsp;
 【扩】无状态就是不会保存数据，反过来有状态就是有数据存储功能。
 </p>
 
-<h5 id="4-延迟初始化（了解）"><a href="#4-延迟初始化（了解）" class="headerlink" title="4.延迟初始化（了解）"></a>4.延迟初始化（了解）</h5><p>延迟初始化的bean在容器启动过程中不会创建，而是需要使用的时候才会去创建：<br><bean lazy-init="true/false" /><br>用来解决定义的bean过多或过于复杂，创建耗时。</p>
-<h5 id="5-在容器匹配到多个bean问题"><a href="#5-在容器匹配到多个bean问题" class="headerlink" title="5.在容器匹配到多个bean问题"></a>5.在容器匹配到多个bean问题</h5><p>（1）primary（选择法）<br>当希望从容器中获取到一个bean对象的时候，容器中却找到了多个匹配的bean，此时spring不知道如何选择了，处于懵逼状态，就会报这个异常。<br>spring中可以通过bean元素的primary属性来解决这个问题，可以通过这个属性来指定当前bean为主要候选者，当容器查询一个bean的时候，如果容器中有多个候选者匹配的时候，此时spring会返回主要的候选者。</p>
+<h2 id="4-延迟初始化（了解）"><a href="#4-延迟初始化（了解）" class="headerlink" title="4.延迟初始化（了解）"></a>4.延迟初始化（了解）</h2><p>延迟初始化的bean在容器启动过程中不会创建，而是需要使用的时候才会去创建：<br><bean lazy-init="true/false" /><br>用来解决定义的bean过多或过于复杂，创建耗时。</p>
+<h2 id="5-在容器匹配到多个bean问题"><a href="#5-在容器匹配到多个bean问题" class="headerlink" title="5.在容器匹配到多个bean问题"></a>5.在容器匹配到多个bean问题</h2><p>（1）primary（选择法）<br>当希望从容器中获取到一个bean对象的时候，容器中却找到了多个匹配的bean，此时spring不知道如何选择了，处于懵逼状态，就会报这个异常。<br>spring中可以通过bean元素的primary属性来解决这个问题，可以通过这个属性来指定当前bean为主要候选者，当容器查询一个bean的时候，如果容器中有多个候选者匹配的时候，此时spring会返回主要的候选者。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;serviceA&quot;</span> class=<span class="string">&quot;xxx&quot;</span> primary=<span class="string">&quot;true&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>（2）排除法<br>还有一种方法也可以解决这个问题，可以设置某个bean是否在自动注入的时候是否为作为候选bean（默认值是true）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">&quot;serviceA&quot;</span> class=<span class="string">&quot;xxx&quot;</span> autowire-candidate=<span class="string">&quot;false&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 <p>（3）当然也可以两个结合使用</p>
-<h5 id="6-Spring-Bean-的生命周期（重点）"><a href="#6-Spring-Bean-的生命周期（重点）" class="headerlink" title="6.Spring Bean 的生命周期（重点）"></a>6.<a target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118500805">Spring Bean 的生命周期（重点）</a></h5><h5 id="7-单例Bean中使用多例Bean"><a href="#7-单例Bean中使用多例Bean" class="headerlink" title="7.单例Bean中使用多例Bean"></a>7.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1671333">单例Bean中使用多例Bean</a></h5><h3 id="六．代理"><a href="#六．代理" class="headerlink" title="六．代理"></a>六．代理</h3><h5 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1.静态代理"></a>1.静态代理</h5><p>在不改变原业务代码的情况下添加业务功能，但是代码量多。</p>
-<h5 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2.动态代理"></a>2.动态代理</h5><p>（1）简述</p>
+<h2 id="6-Spring-Bean-的生命周期（重点）"><a href="#6-Spring-Bean-的生命周期（重点）" class="headerlink" title="6.Spring Bean 的生命周期（重点）"></a>6.<a target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118500805">Spring Bean 的生命周期（重点）</a></h2><h2 id="7-单例Bean中使用多例Bean"><a href="#7-单例Bean中使用多例Bean" class="headerlink" title="7.单例Bean中使用多例Bean"></a>7.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1671333">单例Bean中使用多例Bean</a></h2><h1 id="六．代理"><a href="#六．代理" class="headerlink" title="六．代理"></a>六．代理</h1><h2 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1.静态代理"></a>1.静态代理</h2><p>在不改变原业务代码的情况下添加业务功能，但是代码量多。</p>
+<h2 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2.动态代理"></a>2.动态代理</h2><p>（1）简述</p>
 <p>
 &emsp;&emsp;
 代理spring中用到的挺多的，比如lookup-method和replaced-method，以及aop、spring中的事务、spring中解析@configuration注解等等，这些都是依靠代理来实现的。
@@ -506,7 +644,7 @@ Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring
 基于继承的 CGLib 动态代理；
 </p>
 
-<h3 id="七．AOP"><a href="#七．AOP" class="headerlink" title="七．AOP"></a>七．AOP</h3><p>
+<h1 id="七．AOP"><a href="#七．AOP" class="headerlink" title="七．AOP"></a>七．AOP</h1><p>
 &emsp;&emsp;
 AOP（Aspect Oriented Programming）：面向切面编程，它是一种思想，它是对某一类事情的集中处理，AOP 可以说是 OOP（Object Oriented Programming，面向对象编程）的补充和完善。Spring AOP 是通过动态代理技术实现的，而动态代理是基于反射设计的。<br>
 &emsp;&emsp;
